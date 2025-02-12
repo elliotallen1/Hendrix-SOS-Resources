@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HendrixSOSResources.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class RequestStatus : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,23 +30,6 @@ namespace HendrixSOSResources.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Textbooks",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
-                    Author = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
-                    Edition = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    LoanStatus = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Quantity = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Textbooks", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Requests",
                 columns: table => new
                 {
@@ -55,6 +38,7 @@ namespace HendrixSOSResources.Migrations
                     NeedWithin24Hours = table.Column<bool>(type: "INTEGER", nullable: false),
                     Reason = table.Column<string>(type: "TEXT", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Status = table.Column<int>(type: "INTEGER", nullable: false),
                     ResourceId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -96,9 +80,6 @@ namespace HendrixSOSResources.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Requests");
-
-            migrationBuilder.DropTable(
-                name: "Textbooks");
 
             migrationBuilder.DropTable(
                 name: "Resources");
