@@ -11,7 +11,7 @@ using Microsoft.Identity.Web.UI;
 
 // <ms_docref_add_msal>
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-IEnumerable<string>? initialScopes = builder.Configuration["DownstreamApi:Scopes"]?.Split(' ');
+IEnumerable<string>? initialScopes = builder.Configuration.GetSection("DownstreamApi:Scopes").Get<string[]>();
 
 
 // Add services to the container.
@@ -37,6 +37,9 @@ builder.Services.AddRazorPages().AddMvcOptions(options =>
     }).AddMicrosoftIdentityUI();
 // </ms_docref_add_default_controller_for_sign-in-out>
 
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddScoped<GraphMailService>();
 
 WebApplication app = builder.Build();
 
@@ -59,5 +62,6 @@ app.UseRouting();
 
 app.MapRazorPages();
 app.MapControllers();
+
 
 app.Run();
